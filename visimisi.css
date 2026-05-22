@@ -1,0 +1,389 @@
+/* ===========================
+   RESET & BASE
+=========================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --green-darkest: #1b5e20;
+  --green-dark:    #2e7d32;
+  --green-mid:     #388e3c;
+  --green-light:   #66bb6a;
+  --green-pale:    #c8e6c9;
+  --green-bg:      #f0faf1;
+  --white:         #ffffff;
+  --text-dark:     #1a2e1a;
+  --text-mid:      #33691e;
+  --shadow-card:   0 8px 40px rgba(46, 125, 50, 0.13);
+  --font-main:     'Poppins', sans-serif;
+  --font-arabic:   'Amiri', serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-main);
+  background: var(--green-bg);
+  color: var(--text-dark);
+  min-height: 100vh;
+}
+
+/* ===========================
+   NAVBAR
+=========================== */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: #0d1f0e;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.3);
+}
+
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-logo {
+  flex-shrink: 0;
+}
+
+.nav-school-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 4px;
+}
+
+.nav-links a {
+  display: block;
+  padding: 6px 14px;
+  color: rgba(255,255,255,0.82);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  background: var(--green-dark);
+  color: var(--white);
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: white;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+@media (max-width: 820px) {
+  .nav-links { display: none; }
+  .nav-toggle { display: flex; }
+}
+
+/* ===========================
+   HERO SECTION
+=========================== */
+.hero {
+  position: relative;
+  min-height: 340px;
+  display: flex;
+  align-items: center;
+  /* Gradient background simulating a school building photo feel */
+  
+  background-position: center;
+  padding-top: 95px; /* offset navbar */
+  overflow: hidden;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(13,31,14,0.55) 0%,
+    rgba(27,94,32,0.35) 60%,
+    rgba(13,31,14,0.0) 100%
+  );
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 40px 80px;
+  animation: fadeUp 0.7s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-title {
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 800;
+  color: var(--white);
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+
+.hero-sub {
+  font-size: 18px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 20px;
+}
+
+.hero-breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  backdrop-filter: blur(8px);
+  padding: 6px 18px;
+  border-radius: 99px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.9);
+}
+
+.hero-breadcrumb .sep { opacity: 0.6; }
+.hero-breadcrumb .current { color: #a5d6a7; font-weight: 600; }
+
+.hero-wave {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  line-height: 0;
+}
+
+.hero-wave svg {
+  display: block;
+  width: 100%;
+  height: 60px;
+}
+
+/* ===========================
+   VISI MISI SECTION
+=========================== */
+.vm-section {
+  background: var(--green-bg);
+  padding: 60px 24px 80px;
+}
+
+.vm-container {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+/* ===========================
+   CARDS
+=========================== */
+.vm-card {
+  background: var(--white);
+  border-radius: 20px;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  animation: fadeUp 0.6s ease both;
+}
+
+.misi-card { animation-delay: 0.15s; }
+
+.vm-card-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 22px 36px;
+  background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-mid) 100%);
+}
+
+.vm-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 2px solid rgba(255,255,255,0.3);
+}
+
+.vm-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.vm-card-body {
+  padding: 36px 36px 40px;
+}
+
+/* Visi body */
+.arabic-decoration {
+  font-family: var(--font-arabic);
+  font-size: 22px;
+  color: var(--green-dark);
+  text-align: center;
+  margin-bottom: 20px;
+  opacity: 0.7;
+  letter-spacing: 0.06em;
+}
+
+.vm-visi-text {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-dark);
+  line-height: 1.7;
+  text-align: center;
+  background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+  padding: 28px 32px;
+  border-radius: 12px;
+  border: 2px dashed var(--green-pale);
+  position: relative;
+}
+
+.vm-visi-text::before,
+.vm-visi-text::after {
+  content: '"';
+  font-family: Georgia, serif;
+  font-size: 60px;
+  color: var(--green-pale);
+  position: absolute;
+  line-height: 1;
+}
+
+.vm-visi-text::before { top: 4px; left: 12px; }
+.vm-visi-text::after  { bottom: -8px; right: 12px; transform: scaleX(-1); }
+
+.visi-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.visi-ornament span {
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: var(--green-pale);
+  border-radius: 2px;
+}
+
+.visi-ornament .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green-light);
+}
+
+/* Misi list */
+.vm-misi {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.vm-misi li {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  background: #f6fdf6;
+  border: 1px solid #dcedc8;
+  padding: 18px 24px;
+  border-radius: 12px;
+  transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+  cursor: default;
+}
+
+.vm-misi li:hover {
+  background: #e8f5e9;
+  transform: translateX(6px);
+  box-shadow: 0 4px 16px rgba(46,125,50,0.12);
+}
+
+.misi-num {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--green-light);
+  line-height: 1;
+  min-width: 36px;
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+
+.misi-text {
+  font-size: 16px;
+  color: var(--text-dark);
+  line-height: 1.65;
+  font-weight: 500;
+}
+
+/* ===========================
+   FOOTER STRIP
+=========================== */
+.footer-strip {
+  background: #0d1f0e;
+  text-align: center;
+  padding: 20px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+@media (max-width: 600px) {
+  .vm-card-header { padding: 18px 24px; }
+  .vm-card-body   { padding: 24px 20px 28px; }
+  .vm-visi-text   { font-size: 17px; padding: 20px 20px; }
+  .hero-content   { padding: 40px 24px 70px; }
+}

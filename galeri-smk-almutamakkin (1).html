@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Galeri — SMK Plus AL-MUTAMAKKIN</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --hijau-terang:  #6ee7b7;
+      --hijau-muda:    #a7f3d0;
+      --hijau-medium:  #34d399;
+      --hijau-tua:     #059669;
+      --hijau-gelap:   #065f46;
+      --hijau-bg:      #ffffff;
+      --hijau-border:  #bbf7d0;
+      --putih:         #ffffff;
+      --abu-muda:      #f8fafc;
+      --abu:           #e2e8f0;
+      --teks-gelap:    #064e3b;
+      --teks-abu:      #6b7280;
+      --gold:          #d97706;
+      --shadow-hijau:  0 8px 32px rgba(52,211,153,.18);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--hijau-bg);
+      color: var(--teks-gelap);
+      min-height: 100vh;
+    }
+
+    /* ============================================================
+       NAVBAR
+    ============================================================ */
+    .navbar {
+      position: sticky; top: 0; z-index: 200;
+      background: rgba(255,255,255,.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1.5px solid var(--hijau-border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 68px;
+      box-shadow: 0 2px 16px rgba(52,211,153,.12);
+    }
+    .navbar-brand {
+      display: flex; align-items: center; gap: .85rem; text-decoration: none;
+    }
+    .navbar-logo {
+      width: 44px; height: 44px; border-radius: 50%;
+      object-fit: contain;
+      border: 2px solid var(--hijau-medium);
+      background: var(--hijau-muda);
+      padding: 3px;
+    }
+    .navbar-logo-fallback {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--hijau-medium), var(--hijau-tua));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; font-weight: 800; color: #fff;
+      border: 2px solid var(--hijau-muda);
+      flex-shrink: 0;
+    }
+    .navbar-name {
+      display: flex; flex-direction: column;
+    }
+    .navbar-name strong {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem; font-weight: 700;
+      color: var(--teks-gelap); letter-spacing: .01em; line-height: 1.1;
+    }
+    .navbar-name span {
+      font-size: .68rem; color: var(--hijau-tua); font-weight: 500;
+      letter-spacing: .08em; text-transform: uppercase;
+    }
+    .navbar-links {
+      display: flex; align-items: center; gap: .25rem; list-style: none;
+    }
+    .navbar-links a {
+      text-decoration: none; color: var(--teks-gelap);
+      font-size: .85rem; font-weight: 500;
+      padding: .45rem .9rem; border-radius: 8px;
+      transition: all .18s;
+    }
+    .navbar-links a:hover { background: var(--hijau-muda); color: var(--hijau-gelap); }
+    .navbar-links a.active {
+      background: var(--hijau-medium); color: #fff; font-weight: 600;
+    }
+    .navbar-cta {
+      background: var(--hijau-tua); color: #fff !important;
+      padding: .45rem 1.1rem !important; border-radius: 8px;
+      font-weight: 600 !important;
+    }
+    .navbar-cta:hover { background: var(--hijau-gelap) !important; color: #fff !important; }
+    .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--teks-gelap); border-radius: 2px; transition: .2s; }
+
+    /* ============================================================
+       HERO / HEADER GALERI
+    ============================================================ */
+    .galeri-hero {
+      background: linear-gradient(135deg, var(--hijau-gelap) 0%, var(--hijau-tua) 50%, #0d9488 100%);
+      padding: 5rem 2.5rem 4.5rem;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .galeri-hero::before {
+      content: '';
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 60% 60% at 80% 30%, rgba(110,231,183,.18) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 50% at 15% 70%, rgba(167,243,208,.10) 0%, transparent 70%);
+    }
+    /* Dekoratif lingkaran */
+    .galeri-hero::after {
+      content: '';
+      position: absolute; top: -60px; right: -60px;
+      width: 300px; height: 300px; border-radius: 50%;
+      border: 1.5px solid rgba(110,231,183,.2);
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; z-index: 2; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(110,231,183,.15); border: 1px solid rgba(110,231,183,.4);
+      color: var(--hijau-terang); font-size: .72rem; font-weight: 600;
+      letter-spacing: .12em; text-transform: uppercase;
+      padding: .35rem 1rem; border-radius: 999px; margin-bottom: 1.5rem;
+    }
+    .hero-badge::before { content: '📸'; font-size: .85rem; }
+    .galeri-hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+      font-weight: 800; color: #fff; line-height: 1.08; margin-bottom: .9rem;
+    }
+    .galeri-hero h1 em { color: var(--hijau-terang); font-style: normal; }
+    .galeri-hero p {
+      color: rgba(255,255,255,.78); font-size: 1.05rem;
+      max-width: 540px; margin: 0 auto 2.5rem; line-height: 1.75;
+    }
+
+    /* Statistik */
+    .hero-stats {
+      display: flex; justify-content: center; align-items: center;
+      gap: 0; flex-wrap: wrap;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px; padding: 1.25rem 2rem;
+      max-width: 540px; margin: 0 auto;
+      backdrop-filter: blur(6px);
+    }
+    .stat-item {
+      flex: 1; min-width: 100px; text-align: center; padding: .5rem 1rem;
+    }
+    .stat-item + .stat-item { border-left: 1px solid rgba(255,255,255,.15); }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem; font-weight: 700; color: var(--hijau-terang);
+      display: block; line-height: 1;
+    }
+    .stat-lbl {
+      font-size: .7rem; color: rgba(255,255,255,.65);
+      letter-spacing: .08em; text-transform: uppercase; margin-top: .25rem;
+    }
+
+    /* ============================================================
+       BREADCRUMB
+    ============================================================ */
+    .breadcrumb {
+      background: var(--putih);
+      border-bottom: 1px solid var(--abu);
+      padding: .65rem 2.5rem;
+      display: flex; align-items: center; gap: .5rem;
+      font-size: .78rem; color: var(--teks-abu);
+    }
+    .breadcrumb a { color: var(--hijau-tua); text-decoration: none; font-weight: 500; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb-sep { color: var(--abu); }
+    .breadcrumb-current { color: var(--teks-gelap); font-weight: 600; }
+
+    /* ============================================================
+       FILTER BAR
+    ============================================================ */
+    .filter-section {
+      background: var(--putih);
+      border-bottom: 1.5px solid var(--hijau-border);
+      position: sticky; top: 68px; z-index: 100;
+      box-shadow: 0 2px 12px rgba(52,211,153,.08);
+    }
+    .filter-inner {
+      max-width: 1280px; margin: 0 auto;
+      padding: .9rem 2.5rem;
+      display: flex; align-items: center; gap: .65rem;
+      overflow-x: auto; white-space: nowrap;
+    }
+    .filter-inner::-webkit-scrollbar { height: 3px; }
+    .filter-inner::-webkit-scrollbar-thumb { background: var(--hijau-muda); border-radius: 3px; }
+    .filter-label {
+      font-size: .72rem; color: var(--teks-abu); letter-spacing: .1em;
+      text-transform: uppercase; font-weight: 600; flex-shrink: 0; margin-right: .25rem;
+    }
+    .filter-btn {
+      display: inline-flex; align-items: center; gap: .4rem;
+      border: 1.5px solid var(--abu);
+      background: transparent;
+      color: var(--teks-abu);
+      padding: .4rem 1rem; border-radius: 999px;
+      font-size: .83rem; font-weight: 500; font-family: 'Plus Jakarta Sans', sans-serif;
+      cursor: pointer; transition: all .18s; flex-shrink: 0;
+    }
+    .filter-btn:hover { border-color: var(--hijau-medium); color: var(--hijau-tua); background: var(--hijau-bg); }
+    .filter-btn.active {
+      background: var(--hijau-medium); border-color: var(--hijau-medium);
+      color: #fff; font-weight: 600;
+      box-shadow: 0 2px 10px rgba(52,211,153,.3);
+    }
+    .filter-chip {
+      display: inline-block; font-size: .68rem; background: rgba(255,255,255,.3);
+      padding: .05rem .4rem; border-radius: 999px;
+      font-weight: 700;
+    }
+    .filter-btn.active .filter-chip { background: rgba(255,255,255,.25); }
+    .filter-count {
+      margin-left: auto; flex-shrink: 0;
+      font-size: .78rem; color: var(--teks-abu); font-weight: 500;
+    }
+    .filter-count strong { color: var(--hijau-tua); }
+
+    /* ============================================================
+       MAIN CONTENT
+    ============================================================ */
+    .galeri-main {
+      max-width: 1280px; margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+
+    /* ── Section heading ── */
+    .sec-head {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      margin-bottom: 1.75rem; gap: 1rem; flex-wrap: wrap;
+    }
+    .sec-head-text {
+    }
+    .sec-keterangan {
+      display: block; font-size: .72rem; font-weight: 600;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--hijau-tua); margin-bottom: .3rem;
+    }
+    .sec-judul {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.85rem; font-weight: 700; color: var(--teks-gelap); line-height: 1.15;
+    }
+    .sec-garis {
+      width: 48px; height: 3px; border-radius: 2px;
+      background: linear-gradient(90deg, var(--hijau-medium), var(--hijau-terang));
+      margin-top: .55rem;
+    }
+    .sec-lihat-semua {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .83rem; font-weight: 600; color: var(--hijau-tua);
+      text-decoration: none; border: 1.5px solid var(--hijau-border);
+      padding: .45rem 1rem; border-radius: 8px;
+      transition: all .18s; white-space: nowrap; align-self: center;
+    }
+    .sec-lihat-semua:hover { background: var(--hijau-medium); color: #fff; border-color: var(--hijau-medium); }
+    .sec-lihat-semua svg { transition: transform .18s; }
+    .sec-lihat-semua:hover svg { transform: translateX(3px); }
+
+    /* ── FEATURED — Foto unggulan besar di atas ── */
+    .featured-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr;
+      grid-template-rows: 340px;
+      gap: 14px;
+      margin-bottom: 3.5rem;
+    }
+    .feat-card { position: relative; overflow: hidden; border-radius: 16px; cursor: pointer; }
+    .feat-card:first-child { grid-row: 1; grid-column: 1; }
+    .feat-card img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .5s ease;
+      display: block;
+    }
+    .feat-card:hover img { transform: scale(1.06); }
+    .feat-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(6,95,70,.75) 0%, rgba(6,95,70,.1) 50%, transparent 100%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 1.25rem 1.25rem 1.1rem;
+      opacity: 0; transition: opacity .3s;
+    }
+    .feat-card:hover .feat-overlay { opacity: 1; }
+    .feat-overlay-tag {
+      display: inline-block; background: var(--hijau-medium); color: #fff;
+      font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      padding: .2rem .55rem; border-radius: 5px; margin-bottom: .4rem; width: fit-content;
+    }
+    .feat-overlay-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem; font-weight: 700; color: #fff; line-height: 1.25;
+    }
+
+    /* ── GALERI GRID (masonry-style) ── */
+    .gallery-masonry {
+      columns: 3; column-gap: 14px;
+      margin-bottom: 3.5rem;
+    }
+    @media (max-width: 960px) { .gallery-masonry { columns: 2; } }
+    @media (max-width: 580px) { .gallery-masonry { columns: 1; } }
+
+    .gallery-card {
+      break-inside: avoid;
+      border-radius: 14px; overflow: hidden;
+      margin-bottom: 14px;
+      position: relative; cursor: pointer;
+      background: var(--hijau-border);
+      box-shadow: 0 2px 12px rgba(52,211,153,.1);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .gallery-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(52,211,153,.22);
+    }
+    .gallery-card img {
+      width: 100%; display: block; object-fit: cover;
+      transition: transform .45s ease;
+    }
+    .gallery-card:hover img { transform: scale(1.05); }
+
+    /* Kategori badge di sudut */
+    .card-badge {
+      position: absolute; top: 10px; left: 10px;
+      background: var(--hijau-tua); color: #fff;
+      font-size: .64rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      padding: .2rem .55rem; border-radius: 6px;
+      display: flex; align-items: center; gap: .3rem;
+    }
+    .card-badge.belajar   { background: #0891b2; }
+    .card-badge.ekskul    { background: #7c3aed; }
+    .card-badge.prestasi  { background: var(--gold); }
+
+    /* Hover info */
+    .card-info {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(6,78,59,.8) 0%, transparent 55%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 1rem;
+      opacity: 0; transition: opacity .3s;
+    }
+    .gallery-card:hover .card-info { opacity: 1; }
+    .card-info-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: .95rem; font-weight: 700; color: #fff; line-height: 1.3;
+      margin-bottom: .2rem;
+    }
+    .card-info-meta { font-size: .7rem; color: rgba(255,255,255,.7); }
+
+    /* Tombol zoom */
+    .card-zoom {
+      position: absolute; top: 10px; right: 10px;
+      background: rgba(255,255,255,.9); border-radius: 50%;
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transform: scale(.7); transition: all .22s;
+      color: var(--hijau-tua);
+    }
+    .gallery-card:hover .card-zoom { opacity: 1; transform: scale(1); }
+
+    /* ── KATEGORI RINGKASAN ── */
+    .kategori-section { margin-bottom: 3.5rem; }
+    .kategori-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    @media (max-width: 720px) { .kategori-grid { grid-template-columns: 1fr; } }
+
+    .kat-card {
+      border-radius: 16px; overflow: hidden; position: relative;
+      height: 180px; cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0,0,0,.12);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .kat-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px rgba(0,0,0,.2); }
+    .kat-card img { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(.7); transition: filter .3s, transform .4s; }
+    .kat-card:hover img { filter: brightness(.6); transform: scale(1.05); }
+    .kat-overlay {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center; padding: 1.25rem;
+    }
+    .kat-icon { font-size: 2rem; margin-bottom: .5rem; }
+    .kat-nama {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem; font-weight: 700; color: #fff; margin-bottom: .25rem;
+    }
+    .kat-jumlah { font-size: .75rem; color: rgba(255,255,255,.8); font-weight: 500; }
+    .kat-pill {
+      position: absolute; bottom: 12px; right: 12px;
+      background: rgba(255,255,255,.2); border: 1px solid rgba(255,255,255,.35);
+      color: #fff; font-size: .68rem; font-weight: 600; letter-spacing: .06em;
+      padding: .25rem .65rem; border-radius: 999px; backdrop-filter: blur(4px);
+    }
+
+    /* ── PROMO SEKOLAH ── */
+    .promo-section { margin-bottom: 3.5rem; }
+    .promo-card {
+      background: linear-gradient(135deg, var(--hijau-gelap) 0%, #0d6e4a 55%, #0a7c52 100%);
+      border-radius: 24px; overflow: hidden;
+      box-shadow: 0 12px 40px rgba(6,95,70,.35);
+      position: relative;
+    }
+    .promo-card::before {
+      content: '';
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 55% 70% at 90% 50%, rgba(110,231,183,.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 10% 80%, rgba(167,243,208,.08) 0%, transparent 70%);
+    }
+    .promo-inner {
+      position: relative; z-index: 2;
+      display: flex; align-items: stretch; gap: 0; flex-wrap: wrap;
+    }
+    .promo-left {
+      flex: 1; min-width: 260px; padding: 2.75rem 2.5rem;
+    }
+    .promo-eyebrow {
+      display: inline-flex; align-items: center; gap: .4rem;
+      background: rgba(110,231,183,.18); border: 1px solid rgba(110,231,183,.35);
+      color: var(--hijau-terang); font-size: .7rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      padding: .28rem .75rem; border-radius: 999px; margin-bottom: 1rem;
+    }
+    .promo-left h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 800;
+      color: #fff; line-height: 1.15; margin-bottom: .75rem;
+    }
+    .promo-left h3 em { color: var(--hijau-terang); font-style: normal; }
+    .promo-left p { color: rgba(255,255,255,.72); font-size: .88rem; line-height: 1.75; margin-bottom: 1.5rem; }
+    .promo-keunggulan {
+      list-style: none; display: flex; flex-direction: column; gap: .5rem; margin-bottom: 1.75rem;
+    }
+    .promo-keunggulan li {
+      display: flex; align-items: center; gap: .6rem;
+      color: rgba(255,255,255,.85); font-size: .84rem;
+    }
+    .promo-keunggulan li::before {
+      content: '✓';
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--hijau-medium); color: #fff;
+      font-size: .65rem; font-weight: 800; flex-shrink: 0;
+    }
+    .promo-btns { display: flex; gap: .75rem; flex-wrap: wrap; }
+    .promo-btn-utama {
+      display: inline-flex; align-items: center; gap: .45rem;
+      background: var(--hijau-terang); color: var(--hijau-gelap);
+      padding: .72rem 1.5rem; border-radius: 10px; font-weight: 700;
+      text-decoration: none; font-size: .88rem; transition: all .2s;
+    }
+    .promo-btn-utama:hover { background: var(--hijau-muda); transform: translateY(-1px); }
+    .promo-btn-sekunder {
+      display: inline-flex; align-items: center; gap: .45rem;
+      background: rgba(255,255,255,.1); border: 1.5px solid rgba(255,255,255,.25);
+      color: #fff; padding: .72rem 1.5rem; border-radius: 10px; font-weight: 600;
+      text-decoration: none; font-size: .88rem; transition: all .2s;
+    }
+    .promo-btn-sekunder:hover { background: rgba(255,255,255,.18); }
+
+    /* Stats strip kanan */
+    .promo-right {
+      width: 220px; flex-shrink: 0;
+      background: rgba(0,0,0,.18);
+      border-left: 1px solid rgba(255,255,255,.1);
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 2rem 1.75rem; gap: 1.5rem;
+    }
+    @media (max-width: 720px) {
+      .promo-right { width: 100%; flex-direction: row; flex-wrap: wrap; border-left: none; border-top: 1px solid rgba(255,255,255,.1); justify-content: space-around; }
+    }
+    .promo-stat { text-align: center; }
+    .promo-stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-weight: 800; color: var(--hijau-terang);
+      display: block; line-height: 1;
+    }
+    .promo-stat-lbl { font-size: .68rem; color: rgba(255,255,255,.6); letter-spacing: .08em; text-transform: uppercase; margin-top: .2rem; }
+
+    /* ── GALERI TERBARU (timeline) ── */
+    .terbaru-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .terbaru-card {
+      border-radius: 14px; overflow: hidden; background: var(--putih);
+      box-shadow: 0 2px 12px rgba(52,211,153,.08);
+      transition: transform .22s, box-shadow .22s; cursor: pointer;
+    }
+    .terbaru-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(52,211,153,.18); }
+    .terbaru-img { width: 100%; height: 160px; object-fit: cover; display: block; }
+    .terbaru-body { padding: .85rem 1rem; }
+    .terbaru-kat {
+      font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--hijau-tua); margin-bottom: .3rem;
+    }
+    .terbaru-title {
+      font-size: .88rem; font-weight: 600; color: var(--teks-gelap);
+      line-height: 1.4; margin-bottom: .3rem;
+    }
+    .terbaru-date { font-size: .72rem; color: var(--teks-abu); }
+
+    /* ── ALASAN GABUNG — info statis, tidak interaktif ── */
+    .alasan-section { margin-bottom: 3.5rem; }
+    .alasan-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+    .alasan-card {
+      background: var(--putih); border: 1.5px solid var(--hijau-border);
+      border-radius: 16px; padding: 1.5rem 1.25rem;
+      text-align: center; cursor: default;
+    }
+    .alasan-ikon { font-size: 2rem; margin-bottom: .65rem; display: block; }
+    .alasan-judul { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 700; color: var(--teks-gelap); margin-bottom: .3rem; }
+    .alasan-desc { font-size: .78rem; color: var(--teks-abu); line-height: 1.6; }
+
+    /* ============================================================
+       LIGHTBOX
+    ============================================================ */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(0,0,0,.92);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity .28s;
+    }
+    .lightbox.open { opacity: 1; pointer-events: all; }
+    .lightbox-content {
+      position: relative; max-width: 90vw; max-height: 88vh;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .lightbox-img {
+      max-width: 100%; max-height: 76vh;
+      border-radius: 12px; object-fit: contain;
+      box-shadow: 0 24px 60px rgba(0,0,0,.5);
+    }
+    .lightbox-caption {
+      color: rgba(255,255,255,.8); font-size: .85rem; margin-top: .85rem; text-align: center;
+    }
+    .lightbox-caption strong { color: var(--hijau-terang); }
+    .lightbox-close {
+      position: fixed; top: 1.5rem; right: 1.5rem;
+      background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2);
+      color: #fff; width: 40px; height: 40px; border-radius: 50%;
+      font-size: 1.25rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background .18s;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,.25); }
+    .lightbox-nav {
+      position: fixed; top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+      color: #fff; width: 44px; height: 44px; border-radius: 50%;
+      font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background .18s;
+    }
+    .lightbox-nav:hover { background: rgba(255,255,255,.22); }
+    .lightbox-prev { left: 1.5rem; }
+    .lightbox-next { right: 1.5rem; }
+
+    /* ============================================================
+       FOOTER MINI
+    ============================================================ */
+    .footer {
+      background: var(--hijau-gelap);
+      color: rgba(255,255,255,.7);
+      padding: 2.5rem 2.5rem 2rem;
+      text-align: center;
+    }
+    .footer-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; font-weight: 700; color: #fff; margin-bottom: .4rem;
+    }
+    .footer-sub { font-size: .8rem; color: rgba(255,255,255,.5); margin-bottom: 1.5rem; }
+    .footer-links {
+      display: flex; justify-content: center; gap: 1.75rem;
+      list-style: none; flex-wrap: wrap; margin-bottom: 1.5rem;
+    }
+    .footer-links a { color: rgba(255,255,255,.6); font-size: .82rem; text-decoration: none; transition: color .18s; }
+    .footer-links a:hover { color: var(--hijau-terang); }
+    .footer-copy { font-size: .73rem; color: rgba(255,255,255,.35); }
+
+    /* ============================================================
+       ANIMASI
+    ============================================================ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .animate { animation: fadeUp .5s ease both; }
+    .delay-1 { animation-delay: .1s; }
+    .delay-2 { animation-delay: .2s; }
+    .delay-3 { animation-delay: .3s; }
+    .delay-4 { animation-delay: .4s; }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 900px) {
+      .featured-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 220px 220px; }
+      .feat-card:first-child { grid-column: 1 / 3; }
+      .navbar-links { display: none; }
+      .hamburger { display: flex; }
+    }
+    @media (max-width: 600px) {
+      .galeri-hero { padding: 3.5rem 1.25rem 3rem; }
+      .galeri-main { padding: 2rem 1rem 4rem; }
+      .featured-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+      .feat-card:first-child { grid-column: auto; }
+      .feat-card { height: 200px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================
+     NAVBAR
+============================= -->
+<nav class="navbar">
+  <a href="#" class="navbar-brand">
+    <img
+      src="../Downloads/bdata/logo"
+      alt="Logo SMK Plus AL-MUTAMAKKIN"
+      class="navbar-logo"
+      onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+    />
+    <div class="navbar-logo-fallback" style="display:none">AM</div>
+    <div class="navbar-name">
+      <strong>SMK Plus AL-MUTAMAKKIN</strong>
+      <span>Sekolah Menengah Kejuruan</span>
+    </div>
+  </a>
+  <ul class="navbar-links">
+    <li><a href="index.html">Beranda</a></li>
+    <li><a href="profil.html">Profil</a></li>
+    <li><a href="tkr.html">Akademik</a></li>
+    <li><a href="#" class="active">Galeri</a></li>
+    <li><a href="pendafaran.html">pendaftaran</a></li>
+    <li><a href="#" class="navbar-cta">Kontak</a></li>
+  </ul>
+  <div class="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ============================
+     HERO GALERI
+============================= -->
+<section class="galeri-hero">
+  <div class="hero-inner">
+    <div class="hero-badge animate">Dokumentasi Sekolah</div>
+    <h1 class="animate delay-1">
+      <em>Galeri</em> Kegiatan &<br/>Momen Berharga
+    </h1>
+    <p class="animate delay-2">
+      Abadikan setiap kenangan, prestasi, dan semangat belajar bersama
+      keluarga besar SMK Plus AL-MUTAMAKKIN.
+    </p>
+    <div class="hero-stats animate delay-3">
+      <div class="stat-item">
+        <span class="stat-num">6</span>
+        <div class="stat-lbl">Total Foto</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">3</span>
+        <div class="stat-lbl">Kategori</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">2025</span>
+        <div class="stat-lbl">Tahun Aktif</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="#">Beranda</a>
+  <span class="breadcrumb-sep">›</span>
+  <span class="breadcrumb-current">Galeri</span>
+</div>
+
+<!-- ============================
+     FILTER BAR
+============================= -->
+<div class="filter-section">
+  <div class="filter-inner">
+    <span class="filter-label">Filter :</span>
+    <button class="filter-btn active" data-filter="semua">
+      Semua <span class="filter-chip">6</span>
+    </button>
+    <button class="filter-btn" data-filter="belajar">
+      📚 Kegiatan Belajar <span class="filter-chip">1</span>
+    </button>
+    <button class="filter-btn" data-filter="ekskul">
+      🏃 Ekstrakurikuler <span class="filter-chip">3</span>
+    </button>
+    <button class="filter-btn" data-filter="prestasi">
+      🏆 Prestasi <span class="filter-chip">2</span>
+    </button>
+    <span class="filter-count">Menampilkan <strong id="jumlahTampil">6</strong> foto</span>
+  </div>
+</div>
+
+<!-- ============================
+     MAIN
+============================= -->
+<main class="galeri-main">
+
+  <!-- ── FOTO UNGGULAN ── -->
+  <div class="sec-head animate">
+    <div class="sec-head-text">
+      <span class="sec-keterangan">⭐ Pilihan Editor</span>
+      <h2 class="sec-judul">Foto Unggulan</h2>
+      <div class="sec-garis"></div>
+    </div>
+  </div>
+
+  <div class="featured-grid animate delay-1">
+    <!-- Foto unggulan besar -->
+    <div class="feat-card" onclick="bukaLightbox(0)">
+      <img src="foto1.jpeg" alt="Kegiatan Belajar"
+           onerror="this.src='https://placehold.co/800x600/34d399/065f46?text=Kegiatan+Belajar'" />
+      <div class="feat-overlay">
+        <span class="feat-overlay-tag">Kegiatan Belajar</span>
+        <div class="feat-overlay-title">Suasana Belajar Aktif di Kelas</div>
+      </div>
+    </div>
+    <!-- Foto ekskul -->
+    <div class="feat-card" onclick="bukaLightbox(1)">
+      <img src="foto2.jpeg" alt="Ekstrakurikuler"
+           onerror="this.src='https://placehold.co/600x400/6ee7b7/065f46?text=Ekstrakurikuler+1'" />
+      <div class="feat-overlay">
+        <span class="feat-overlay-tag">Ekstrakurikuler</span>
+        <div class="feat-overlay-title">Latihan Rutin Ekskul</div>
+      </div>
+    </div>
+    <div class="feat-card" onclick="bukaLightbox(4)">
+      <img src="foto5.jpeg" alt="Prestasi"
+           onerror="this.src='https://placehold.co/600x400/d97706/fff?text=Prestasi+1'" />
+      <div class="feat-overlay">
+        <span class="feat-overlay-tag">Prestasi</span>
+        <div class="feat-overlay-title">Penghargaan & Prestasi Siswa</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── GALERI MASONRY ── -->
+  <div class="sec-head animate">
+    <div class="sec-head-text">
+      <span class="sec-keterangan">📷 Dokumentasi</span>
+      <h2 class="sec-judul">Semua Foto</h2>
+      <div class="sec-garis"></div>
+    </div>
+    <a href="#" class="sec-lihat-semua">
+      Unduh Semua
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+
+  <div class="gallery-masonry" id="galleryMasonry">
+
+    <!-- FOTO 1 — Kegiatan Belajar -->
+    <div class="gallery-card" data-kat="belajar" onclick="bukaLightbox(0)">
+      <span class="card-badge belajar">📚 Belajar</span>
+      <img src="foto1.jpeg" alt="Kegiatan Belajar" style="height:240px;"
+           onerror="this.src='https://placehold.co/500x400/0891b2/fff?text=foto1+Belajar'" />
+      <div class="card-info">
+        <div class="card-info-title">Kegiatan Belajar Mengajar</div>
+        <div class="card-info-meta">Kelas Aktif · 2025</div>
+      </div>
+      <div class="card-zoom">🔍</div>
+    </div>
+
+    <!-- FOTO 2 — Ekskul -->
+    <div class="gallery-card" data-kat="ekskul" onclick="bukaLightbox(1)">
+      <span class="card-badge ekskul">🏃 Ekskul</span>
+      <img src="foto2.jpeg" alt="Ekstrakurikuler 1" style="height:200px;"
+           onerror="this.src='https://placehold.co/500x350/7c3aed/fff?text=foto2+Ekskul'" />
+      <div class="card-info">
+        <div class="card-info-title">Latihan Ekstrakurikuler</div>
+        <div class="card-info-meta">Ekskul Rutin · 2025</div>
+      </div>
+      <div class="card-zoom">🔍</div>
+    </div>
+
+    <!-- FOTO 5 — Prestasi -->
+    <div class="gallery-card" data-kat="prestasi" onclick="bukaLightbox(4)">
+      <span class="card-badge prestasi">🏆 Prestasi</span>
+      <img src="foto5.jpeg" alt="Prestasi 1" style="height:220px;"
+           onerror="this.src='https://placehold.co/500x380/d97706/fff?text=foto5+Prestasi'" />
+      <div class="card-info">
+        <div class="card-info-title">Penghargaan Siswa Berprestasi</div>
+        <div class="card-info-meta">Kompetisi Antar Sekolah · 2025</div>
+      </div>
+      <div class="card-zoom">🔍</div>
+    </div>
+
+    <!-- FOTO 3 — Ekskul -->
+    <div class="gallery-card" data-kat="ekskul" onclick="bukaLightbox(2)">
+      <span class="card-badge ekskul">🏃 Ekskul</span>
+      <img src="foto3.jpeg" alt="Ekstrakurikuler 2" style="height:190px;"
+           onerror="this.src='https://placehold.co/500x320/7c3aed/fff?text=foto3+Ekskul'" />
+      <div class="card-info">
+        <div class="card-info-title">Kegiatan Ekskul Seni</div>
+        <div class="card-info-meta">Penampilan Siswa · 2025</div>
+      </div>
+      <div class="card-zoom">🔍</div>
+    </div>
+
+    <!-- FOTO 6 — Prestasi -->
+    <div class="gallery-card" data-kat="prestasi" onclick="bukaLightbox(5)">
+      <span class="card-badge prestasi">🏆 Prestasi</span>
+      <img src="foto6.jpeg" alt="Prestasi 2" style="height:230px;"
+           onerror="this.src='https://placehold.co/500x390/d97706/fff?text=foto6+Prestasi'" />
+      <div class="card-info">
+        <div class="card-info-title">Juara Lomba Tingkat Kota</div>
+        <div class="card-info-meta">Kejuaraan Resmi · 2025</div>
+      </div>
+      <div class="card-zoom">🔍</div>
+    </div>
+
+    <!-- FOTO 4 — Ekskul -->
+    <div class="gallery-card" data-kat="ekskul" onclick="bukaLightbox(3)">
+      <span class="card-badge ekskul">🏃 Ekskul</span>
+      <img src="foto4.jpeg" alt="Ekstrakurikuler 3" style="height:210px;"
+           onerror="this.src='https://placehold.co/500x360/7c3aed/fff?text=foto4+Ekskul'" />
+      <div class="card-info">
+        <div class="card-info-title">Ekskul Olahraga & Tim</div>
+        <div class="card-info-meta">Turnamen Internal · 2025</div>
+      </div>
+      <div class="card-zoom">🔍</div>
+    </div>
+
+  </div><!-- /gallery-masonry -->
+
+  <!-- ── RINGKASAN KATEGORI ── -->
+  <div class="kategori-section animate">
+    <div class="sec-head">
+      <div class="sec-head-text">
+        <span class="sec-keterangan">🗂️ Jelajahi</span>
+        <h2 class="sec-judul">Kategori Kegiatan</h2>
+        <div class="sec-garis"></div>
+      </div>
+    </div>
+    <div class="kategori-grid">
+
+      <div class="kat-card" onclick="filterKategori('belajar')">
+        <img src="foto1.jpeg"
+             onerror="this.src='https://placehold.co/600x300/0891b2/fff?text=Kegiatan+Belajar'" />
+        <div class="kat-overlay">
+          <div class="kat-icon">📚</div>
+          <div class="kat-nama">Kegiatan Belajar</div>
+          <div class="kat-jumlah">1 Foto</div>
+        </div>
+        <span class="kat-pill">Lihat Semua →</span>
+      </div>
+
+      <div class="kat-card" onclick="filterKategori('ekskul')">
+        <img src="foto2.jpeg"
+             onerror="this.src='https://placehold.co/600x300/7c3aed/fff?text=Ekstrakurikuler'" />
+        <div class="kat-overlay">
+          <div class="kat-icon">🏃</div>
+          <div class="kat-nama">Ekstrakurikuler</div>
+          <div class="kat-jumlah">3 Foto</div>
+        </div>
+        <span class="kat-pill">Lihat Semua →</span>
+      </div>
+
+      <div class="kat-card" onclick="filterKategori('prestasi')">
+        <img src="foto5.jpeg"
+             onerror="this.src='https://placehold.co/600x300/d97706/fff?text=Prestasi'" />
+        <div class="kat-overlay">
+          <div class="kat-icon">🏆</div>
+          <div class="kat-nama">Prestasi</div>
+          <div class="kat-jumlah">2 Foto</div>
+        </div>
+        <span class="kat-pill">Lihat Semua →</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── PROMO SEKOLAH — Ajak calon siswa bergabung ── -->
+  <div class="promo-section animate">
+    <div class="promo-card">
+      <div class="promo-inner">
+        <div class="promo-left">
+          <span class="promo-eyebrow">🎓 Penerimaan Siswa Baru 2025/2026</span>
+          <h3>Jadilah Bagian dari<br/><em>Keluarga AL-MUTAMAKKIN</em></h3>
+          <p>
+            Lihat sendiri bagaimana siswa kami berprestasi, berkreasi, dan bertumbuh.
+            Galeri ini adalah bukti nyata kualitas lingkungan belajar yang kami hadirkan setiap hari.
+          </p>
+          <ul class="promo-keunggulan">
+            <li>Kurikulum berbasis kompetensi industri</li>
+            <li>Guru berpengalaman & bersertifikat</li>
+            <li>Ekstrakurikuler aktif & fasilitas lengkap</li>
+            <li>Rekam jejak prestasi di tingkat kota & provinsi</li>
+            <li>Lingkungan Islami, disiplin, dan bersahabat</li>
+          </ul>
+          <div class="promo-btns">
+            <a href="pendafaran.html" class="promo-btn-utama">📋 Daftar Sekarang</a>
+            <a href="#" class="promo-btn-sekunder">📞 Hubungi Kami</a>
+          </div>
+        </div>
+        <div class="promo-right">
+          <div class="promo-stat">
+            <span class="promo-stat-num">500+</span>
+            <div class="promo-stat-lbl">Siswa Aktif</div>
+          </div>
+          <div class="promo-stat">
+            <span class="promo-stat-num">30+</span>
+            <div class="promo-stat-lbl">Guru & Staf</div>
+          </div>
+          <div class="promo-stat">
+            <span class="promo-stat-num">15+</span>
+            <div class="promo-stat-lbl">Ekskul</div>
+          </div>
+          <div class="promo-stat">
+            <span class="promo-stat-num">98%</span>
+            <div class="promo-stat-lbl">Lulusan Terserap</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FOTO TERBARU ── -->
+  <div class="animate">
+    <div class="sec-head">
+      <div class="sec-head-text">
+        <span class="sec-keterangan">🕐 Terbaru</span>
+        <h2 class="sec-judul">Ditambahkan Baru-baru Ini</h2>
+        <div class="sec-garis"></div>
+      </div>
+    </div>
+    <div class="terbaru-grid">
+
+      <div class="terbaru-card" onclick="bukaLightbox(5)">
+        <img class="terbaru-img" src="foto6.jpeg"
+             onerror="this.src='https://placehold.co/400x280/34d399/065f46?text=foto6'" />
+        <div class="terbaru-body">
+          <div class="terbaru-kat">🏆 Prestasi</div>
+          <div class="terbaru-title">Juara Lomba Tingkat Kota</div>
+          <div class="terbaru-date">2 hari lalu</div>
+        </div>
+      </div>
+
+      <div class="terbaru-card" onclick="bukaLightbox(3)">
+        <img class="terbaru-img" src="foto4.jpeg"
+             onerror="this.src='https://placehold.co/400x280/6ee7b7/065f46?text=foto4'" />
+        <div class="terbaru-body">
+          <div class="terbaru-kat">🏃 Ekstrakurikuler</div>
+          <div class="terbaru-title">Ekskul Olahraga & Tim</div>
+          <div class="terbaru-date">5 hari lalu</div>
+        </div>
+      </div>
+
+      <div class="terbaru-card" onclick="bukaLightbox(2)">
+        <img class="terbaru-img" src="foto3.jpeg"
+             onerror="this.src='https://placehold.co/400x280/a7f3d0/065f46?text=foto3'" />
+        <div class="terbaru-body">
+          <div class="terbaru-kat">🏃 Ekstrakurikuler</div>
+          <div class="terbaru-title">Kegiatan Ekskul Seni</div>
+          <div class="terbaru-date">1 minggu lalu</div>
+        </div>
+      </div>
+
+      <div class="terbaru-card" onclick="bukaLightbox(0)">
+        <img class="terbaru-img" src="foto1.jpeg"
+             onerror="this.src='https://placehold.co/400x280/0891b2/fff?text=foto1'" />
+        <div class="terbaru-body">
+          <div class="terbaru-kat">📚 Kegiatan Belajar</div>
+          <div class="terbaru-title">Suasana Belajar Aktif di Kelas</div>
+          <div class="terbaru-date">2 minggu lalu</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── ALASAN BERGABUNG ── -->
+  <div class="alasan-section animate" style="margin-top:3rem;">
+    <div class="sec-head">
+      <div class="sec-head-text">
+        <span class="sec-keterangan">💡 Mengapa Kami?</span>
+        <h2 class="sec-judul">Alasan Memilih AL-MUTAMAKKIN</h2>
+        <div class="sec-garis"></div>
+      </div>
+    </div>
+    <div class="alasan-grid">
+      <div class="alasan-card">
+        <span class="alasan-ikon">🏫</span>
+        <div class="alasan-judul">Fasilitas Modern</div>
+        <div class="alasan-desc">Ruang kelas ber-AC, laboratorium komputer, perpustakaan digital, dan area praktik lengkap.</div>
+      </div>
+      <div class="alasan-card">
+        <span class="alasan-ikon">🏆</span>
+        <div class="alasan-judul">Berprestasi</div>
+        <div class="alasan-desc">Juara berbagai lomba tingkat kota hingga provinsi setiap tahunnya.</div>
+      </div>
+      <div class="alasan-card">
+        <span class="alasan-ikon">🤝</span>
+        <div class="alasan-judul">Link & Match Industri</div>
+        <div class="alasan-desc">Kerjasama dengan perusahaan untuk magang dan penempatan kerja lulusan.</div>
+      </div>
+      <div class="alasan-card">
+        <span class="alasan-ikon">🕌</span>
+        <div class="alasan-judul">Berbasis Islami</div>
+        <div class="alasan-desc">Pembinaan karakter, akhlak, dan nilai-nilai keislaman terintegrasi dalam setiap kegiatan.</div>
+      </div>
+    </div>
+  </div>
+
+
+</main>
+
+<!-- ============================
+     FOOTER
+============================= -->
+<footer class="footer">
+  <div class="footer-brand">SMK Plus AL-MUTAMAKKIN</div>
+  <div class="footer-sub">Mendidik dengan Ilmu, Membimbing dengan Iman</div>
+  <ul class="footer-links">
+    <li><a href="#">Beranda</a></li>
+    <li><a href="#">Profil Sekolah</a></li>
+    <li><a href="#">Akademik</a></li>
+    <li><a href="#">Galeri</a></li>
+    <li><a href="#">Berita</a></li>
+    <li><a href="#">Kontak</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 SMK Plus AL-MUTAMAKKIN · Hak Cipta Dilindungi</div>
+</footer>
+
+<!-- ============================
+     LIGHTBOX
+============================= -->
+<div class="lightbox" id="lightbox" onclick="tutupLightbox(event)">
+  <button class="lightbox-close" onclick="tutupLightbox()">✕</button>
+  <button class="lightbox-nav lightbox-prev" onclick="navLightbox(-1, event)">‹</button>
+  <button class="lightbox-nav lightbox-next" onclick="navLightbox(1, event)">›</button>
+  <div class="lightbox-content">
+    <img class="lightbox-img" id="lightboxImg" src="" alt="" />
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+  </div>
+</div>
+
+<!-- ============================
+     JAVASCRIPT
+============================= -->
+<script>
+  /* ── Data foto ── */
+  const fotos = [
+    { src: '../Downloads/bdata/foto1', kat: 'Kegiatan Belajar', judul: 'Suasana Belajar Aktif di Kelas', fallback: 'https://placehold.co/900x600/0891b2/fff?text=foto1+Kegiatan+Belajar' },
+    { src: '../Downloads/bdata/foto2', kat: 'Ekstrakurikuler',  judul: 'Latihan Ekstrakurikuler', fallback: 'https://placehold.co/900x600/7c3aed/fff?text=foto2+Ekskul' },
+    { src: '../Downloads/bdata/foto3', kat: 'Ekstrakurikuler',  judul: 'Kegiatan Ekskul Seni', fallback: 'https://placehold.co/900x600/7c3aed/fff?text=foto3+Ekskul' },
+    { src: '../Downloads/bdata/foto4', kat: 'Ekstrakurikuler',  judul: 'Ekskul Olahraga & Tim', fallback: 'https://placehold.co/900x600/7c3aed/fff?text=foto4+Ekskul' },
+    { src: '../Downloads/bdata/foto5', kat: 'Prestasi',         judul: 'Penghargaan Siswa Berprestasi', fallback: 'https://placehold.co/900x600/d97706/fff?text=foto5+Prestasi' },
+    { src: '../Downloads/bdata/foto6', kat: 'Prestasi',         judul: 'Juara Lomba Tingkat Kota', fallback: 'https://placehold.co/900x600/d97706/fff?text=foto6+Prestasi' },
+  ];
+
+  let indeksSaat = 0;
+  let indeksVisible = [];
+
+  /* ── Lightbox ── */
+  function bukaLightbox(i) {
+    indeksSaat = i;
+    const f = fotos[i];
+    const img = document.getElementById('lightboxImg');
+    img.src = f.src;
+    img.onerror = () => { img.src = f.fallback; };
+    document.getElementById('lightboxCaption').innerHTML = `<strong>${f.kat}</strong> — ${f.judul}`;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function tutupLightbox(e) {
+    if (!e || e.target === document.getElementById('lightbox') || e.currentTarget.classList.contains('lightbox-close')) {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  }
+
+  function navLightbox(arah, e) {
+    if (e) e.stopPropagation();
+    indeksSaat = (indeksSaat + arah + fotos.length) % fotos.length;
+    bukaLightbox(indeksSaat);
+  }
+
+  document.addEventListener('keydown', e => {
+    const lb = document.getElementById('lightbox');
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') tutupLightbox({ target: lb });
+    if (e.key === 'ArrowRight') navLightbox(1, null);
+    if (e.key === 'ArrowLeft')  navLightbox(-1, null);
+  });
+
+  /* ── Filter ── */
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('#galleryMasonry .gallery-card');
+  const jumlahEl = document.getElementById('jumlahTampil');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      filterKategori(f);
+    });
+  });
+
+  function filterKategori(f) {
+    /* Scroll ke galeri */
+    document.getElementById('galleryMasonry').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    /* Update tombol filter */
+    filterBtns.forEach(b => {
+      b.classList.toggle('active', b.dataset.filter === f);
+    });
+
+    let tampil = 0;
+    cards.forEach(card => {
+      const cocok = f === 'semua' || card.dataset.kat === f;
+      card.style.display = cocok ? '' : 'none';
+      if (cocok) tampil++;
+    });
+    jumlahEl.textContent = tampil;
+  }
+
+  /* ── Intersection Observer (animasi scroll) ── */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.animationPlayState = 'running';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.animate').forEach(el => {
+    el.style.animationPlayState = 'paused';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
